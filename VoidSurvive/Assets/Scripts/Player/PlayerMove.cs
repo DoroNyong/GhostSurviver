@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    [SerializeField] private PlayerManager playerManager;
+
     public Transform characterBody;
     public Transform cameraArm;
 
@@ -11,6 +13,13 @@ public class PlayerMove : MonoBehaviour
     private float Getkey_speed;
 
     public int rotationSpeed = 5;
+
+    private static bool isMove;
+
+    private void Start()
+    {
+        playerManager = PlayerManager.instance;
+    }
 
     void Update()
     {
@@ -42,10 +51,11 @@ public class PlayerMove : MonoBehaviour
         float v = Input.GetAxisRaw("Vertical");
 
         Vector2 moveInput = new Vector2(h, v);
-        bool isMove = moveInput.magnitude != 0;
+        playerManager.isMove = moveInput.magnitude != 0;
 
-        if (isMove)
+        if (playerManager.isMove)
         {
+
             if ((h != 0) && (v != 0))
             {
                 Getkey_speed = 1 / Mathf.Sqrt(2);
