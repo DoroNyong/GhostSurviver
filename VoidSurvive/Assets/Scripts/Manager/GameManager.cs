@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static PlayerManager instance;
+    public static GameManager instance;
 
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -19,7 +20,8 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public bool isMove = false;
-
-    public bool isAiming = false;
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 }
