@@ -22,4 +22,6 @@ public class PlayerManager : MonoBehaviour
     public bool isMove = false;
 
     public bool isAiming = false;
+
+    public GameObject aimPoint = null;
 }

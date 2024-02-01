@@ -10,14 +10,13 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Transform noZoomPosition;
     [SerializeField] private Transform zoomPosition;
 
-    [SerializeField] private Vector3 aimPoint;
-
     public GameObject crossHair;
 
     private void Start()
     {
         playerManager = PlayerManager.instance;
         crossHair = Instantiate(crossHair);
+        playerManager.aimPoint = crossHair;
     }
 
     private void Update()
@@ -55,7 +54,6 @@ public class CameraManager : MonoBehaviour
         if(Physics.Raycast(ray, out hit, 100f, layer_mask))
         {
             Vector3 hitPosition = hit.point;
-            aimPoint = hitPosition;
             crossHair.transform.position = hitPosition;
             crossHair.transform.LookAt(Camera.main.transform);
         }
