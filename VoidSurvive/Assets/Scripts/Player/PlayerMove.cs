@@ -78,10 +78,20 @@ public class PlayerMove : MonoBehaviour
             else
             {
                 Quaternion newRoataion = Quaternion.LookRotation(lookForward);
-                characterBody.rotation = Quaternion.Slerp(characterBody.rotation, newRoataion, rotationSpeed * Time.deltaTime);
+                characterBody.rotation = Quaternion.Slerp(characterBody.rotation, newRoataion, rotationSpeed * 4 * Time.deltaTime);
             }
 
             transform.position += moveDir * Time.deltaTime * Speed * Getkey_speed;
+        }
+        else
+        {
+            Vector3 lookForward = new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized;
+
+            if (playerManager.isAiming)
+            {
+                Quaternion newRoataion = Quaternion.LookRotation(lookForward);
+                characterBody.rotation = Quaternion.Slerp(characterBody.rotation, newRoataion, rotationSpeed * 4 * Time.deltaTime);
+            }
         }
     }
 

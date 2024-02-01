@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CameraManager : MonoBehaviour
 {
@@ -9,9 +10,14 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Transform noZoomPosition;
     [SerializeField] private Transform zoomPosition;
 
+    [SerializeField] private Vector3 aimPoint;
+
+    public GameObject crossHair;
+
     private void Start()
     {
         playerManager = PlayerManager.instance;
+        crossHair = Instantiate(crossHair);
     }
 
     private void Update()
@@ -23,6 +29,35 @@ public class CameraManager : MonoBehaviour
         else
         {
             transform.position = Vector3.MoveTowards(gameObject.transform.position, zoomPosition.position, 30f * Time.deltaTime);
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if(!playerManager.isAiming)
+        {
+            crossHair.SetActive(false);
+        }
+        else
+        {
+            crossHair.SetActive(true);
+            PositionCrossHair();
+        }
+    }
+
+    private void PositionCrossHair()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+
+        int layer_mask = LayerMask.GetMask("Default");
+
+        if(Physics.Raycast(ray, out hit, 100f, layer_mask))
+        {
+            Vector3 hitPosition = hit.point;
+            aimPoint = hitPosition;
+            crossHair.transform.position = hitPosition;
+            crossHair.transform.LookAt(Camera.main.transform);
         }
     }
 }
