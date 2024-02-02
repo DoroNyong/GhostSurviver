@@ -11,8 +11,9 @@ public class EnemyManager : MonoBehaviour
     public GameObject[] enemyPrefabs;
     public List<GameObject> enemies = new List<GameObject>();
 
-    public float createTime = 2f;
-    public int maxMonster = 10;
+    public float createTime = 5f;
+    public int minEnemy = 5;
+    public int maxEnemy = 10;
     public float elitePercentage = 10;
 
     public Transform enemyPoint;
@@ -36,9 +37,16 @@ public class EnemyManager : MonoBehaviour
     {
         while (!playerManager.isGameOver)
         {
-            if (enemies.Count < maxMonster)
+            if (enemies.Count < maxEnemy)
             {
-                yield return new WaitForSeconds(createTime);
+                if (enemies.Count > minEnemy)
+                {
+                    yield return new WaitForSeconds(/*createTime*/5f);
+                }
+                else
+                {
+                    yield return new WaitForSeconds(1f);
+                }
 
                 int spawnPointIdx = Random.Range(0, spawnPoints.Length);
                 int enemyIdx;

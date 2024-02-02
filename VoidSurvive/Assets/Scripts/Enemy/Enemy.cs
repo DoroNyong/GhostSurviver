@@ -56,7 +56,6 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             isDead = true;
-            Debug.Log("충돌하긴했는데?");
             StartCoroutine(Dead());
         }
     }
