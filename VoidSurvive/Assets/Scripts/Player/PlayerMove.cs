@@ -9,8 +9,7 @@ public class PlayerMove : MonoBehaviour
     public Transform characterBody;
     public Transform cameraArm;
 
-    public int Speed = 5;
-    private float Getkey_speed;
+    private float getKeySpeed;
 
     public int rotationSpeed = 5;
 
@@ -23,9 +22,12 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        LookAround();
-        Aim();
-        Move();
+        if (!playerManager.isGameOver)
+        {
+            LookAround();
+            Aim();
+            Move();
+        }
     }
 
     private void LookAround()
@@ -59,11 +61,11 @@ public class PlayerMove : MonoBehaviour
 
             if ((h != 0) && (v != 0))
             {
-                Getkey_speed = 1 / Mathf.Sqrt(2);
+                getKeySpeed = 1 / Mathf.Sqrt(2);
             }
             else
             {
-                Getkey_speed = 1;
+                getKeySpeed = 1;
             }
 
             Vector3 lookForward = new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized;
@@ -75,7 +77,7 @@ public class PlayerMove : MonoBehaviour
                 Quaternion newRotation = Quaternion.LookRotation(moveDir);
                 characterBody.rotation = Quaternion.Slerp(characterBody.rotation, newRotation, rotationSpeed * Time.deltaTime);
 
-                transform.position += moveDir * Time.deltaTime * Speed * Getkey_speed;
+                transform.position += moveDir * Time.deltaTime * playerManager.speed * getKeySpeed;
             }
             else
             {
@@ -85,7 +87,7 @@ public class PlayerMove : MonoBehaviour
                 Quaternion newRoataion = Quaternion.LookRotation(zoomMoveDir);
                 characterBody.rotation = Quaternion.Slerp(characterBody.rotation, newRoataion, rotationSpeed * 4 * Time.deltaTime);
 
-                transform.position += moveDir * Time.deltaTime * Speed * Getkey_speed / 2;
+                transform.position += moveDir * Time.deltaTime * playerManager.speed * getKeySpeed / 2;
             }
         }
         else

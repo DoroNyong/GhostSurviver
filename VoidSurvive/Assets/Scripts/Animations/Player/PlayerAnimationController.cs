@@ -8,6 +8,8 @@ public class PlayerAnimationController : MonoBehaviour
 
     [SerializeField] private Animator animator;
 
+    private bool once = true;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -20,7 +22,18 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Update()
     {
-        AnimationUpdate();
+        if (!playerManager.isGameOver)
+        {
+            AnimationUpdate();
+        }
+        else
+        {
+            if (once)
+            {
+                animator.SetTrigger("isDead");
+                once = false;
+            }
+        }
     }
 
     private void AnimationUpdate()

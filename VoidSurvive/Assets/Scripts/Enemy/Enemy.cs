@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int hp;
+    private EnemyManager enemyManager;
+    protected PlayerManager playerManager;
+
+    public float hp;
     public float speed;
 
     public GameObject Player = null;
@@ -19,9 +22,10 @@ public class Enemy : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    private void Start()
+    protected virtual void Start()
     {
-        Setting();
+        enemyManager = EnemyManager.instance;
+        playerManager = PlayerManager.instance;
     }
 
     private void FixedUpdate()
@@ -51,7 +55,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
@@ -63,13 +67,14 @@ public class Enemy : MonoBehaviour
     IEnumerator Dead()
     {
         animator.SetTrigger("isDead");
+        enemyManager.enemies.Remove(this.gameObject);
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length + 0.01f);
         Destroy(gameObject);
     }
 
-    public virtual void Setting()
+    public virtual void Setting(float hp, float speed)
     {
-        hp = 1;
-        speed = 2f;
+        this.hp = hp;
+        this.speed = speed;
     }
 }

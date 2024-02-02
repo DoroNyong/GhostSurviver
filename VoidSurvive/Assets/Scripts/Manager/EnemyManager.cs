@@ -1,22 +1,42 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+    public static EnemyManager instance;
+
     [SerializeField] private PlayerManager playerManager;
 
     public Transform[] spawnPoints;
     public GameObject[] enemyPrefabs;
     public List<GameObject> enemies = new List<GameObject>();
 
-    public float createTime = 5f;
+    public float maxCreateTime = 5f;
+    public float minCreateTime = 1f;
     public int minEnemy = 5;
     public int maxEnemy = 10;
     public float elitePercentage = 10;
 
+    private bool once = true;
+
+    // 적 개체 하이어라키 장소
     public Transform enemyPoint;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(instance);
+            return;
+        }
+    }
 
     private void Start()
     {
@@ -35,23 +55,33 @@ public class EnemyManager : MonoBehaviour
 
     IEnumerator CreateMonster()
     {
-        while (!playerManager.isGameOver)
+        while (true)
         {
+            if (playerManager.isGameOver && once)
+            {
+                maxCreateTime = 0.3f;
+                minCreateTime = 0.3f;
+                maxEnemy = 50;
+                once = false;
+            }
+
             if (enemies.Count < maxEnemy)
             {
                 if (enemies.Count > minEnemy)
                 {
-                    yield return new WaitForSeconds(/*createTime*/5f);
+                    yield return new WaitForSeconds(maxCreateTime);
                 }
                 else
                 {
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(minCreateTime);
                 }
 
                 int spawnPointIdx = Random.Range(0, spawnPoints.Length);
                 int enemyIdx;
 
-                if (Random.Range(0, 100) > elitePercentage)
+                int percentage = Random.Range(0, 100);
+
+                if (percentage > elitePercentage)
                 {
                     enemyIdx = 0;
                 }
@@ -71,7 +101,7 @@ public class EnemyManager : MonoBehaviour
 
     private void RandomSeed()
     {
-        float temp = Time.time * 100f;
-        Random.InitState((int)temp);
+        float randomSeed = Random.Range(0f, 100f);
+        Random.InitState((int)randomSeed);
     }
 }

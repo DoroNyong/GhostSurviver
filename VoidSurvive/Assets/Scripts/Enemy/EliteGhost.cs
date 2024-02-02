@@ -4,9 +4,18 @@ using UnityEngine;
 
 public class EliteGhost : Enemy
 {
-    public override void Setting()
+    protected override void Start()
     {
-        hp = 3;
-        speed = 3f;
+        base.Start();
+        Setting(3f, 4f);
+    }
+
+    protected override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
+        if (other.gameObject.CompareTag("Player"))
+        {
+            playerManager.hp -= 2;
+        }
     }
 }
