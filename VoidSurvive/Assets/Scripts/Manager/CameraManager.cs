@@ -24,23 +24,12 @@ public class CameraManager : MonoBehaviour
         if (!playerManager.isAiming)
         {
             transform.position = Vector3.MoveTowards(gameObject.transform.position, noZoomPosition.position, 30f * Time.deltaTime);
-        }
-        else
-        {
-            transform.position = Vector3.MoveTowards(gameObject.transform.position, zoomPosition.position, 30f * Time.deltaTime);
-        }
-    }
-
-    private void LateUpdate()
-    {
-        if(!playerManager.isAiming)
-        {
             crossHair.SetActive(false);
         }
         else
         {
-            PositionCrossHair();
-            crossHair.SetActive(true);
+            transform.position = Vector3.MoveTowards(gameObject.transform.position, zoomPosition.position, 30f * Time.deltaTime);
+            StartCoroutine(ZoomAim());
         }
     }
 
@@ -57,5 +46,12 @@ public class CameraManager : MonoBehaviour
             crossHair.transform.position = hitPosition;
             crossHair.transform.LookAt(Camera.main.transform);
         }
+    }
+
+    IEnumerator ZoomAim()
+    {
+        yield return new WaitForSeconds(0.1f);
+        PositionCrossHair();
+        crossHair.SetActive(true);
     }
 }
