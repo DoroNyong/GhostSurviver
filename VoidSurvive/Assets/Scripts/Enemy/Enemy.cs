@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int hp = 3;
-    public float speed = 3f;
+    public int hp;
+    public float speed;
 
     public GameObject Player = null;
 
@@ -17,6 +17,11 @@ public class Enemy : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         Player = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    private void Start()
+    {
+        Setting();
     }
 
     private void FixedUpdate()
@@ -40,7 +45,10 @@ public class Enemy : MonoBehaviour
 
     private void Hit()
     {
-        hp -= 1;
+        if (!isDead)
+        {
+            hp -= 1;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -57,5 +65,11 @@ public class Enemy : MonoBehaviour
         animator.SetTrigger("isDead");
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length + 0.01f);
         Destroy(gameObject);
+    }
+
+    public virtual void Setting()
+    {
+        hp = 1;
+        speed = 2f;
     }
 }

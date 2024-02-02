@@ -74,6 +74,8 @@ public class PlayerMove : MonoBehaviour
             {
                 Quaternion newRotation = Quaternion.LookRotation(moveDir);
                 characterBody.rotation = Quaternion.Slerp(characterBody.rotation, newRotation, rotationSpeed * Time.deltaTime);
+
+                transform.position += moveDir * Time.deltaTime * Speed * Getkey_speed;
             }
             else
             {
@@ -82,9 +84,9 @@ public class PlayerMove : MonoBehaviour
 
                 Quaternion newRoataion = Quaternion.LookRotation(zoomMoveDir);
                 characterBody.rotation = Quaternion.Slerp(characterBody.rotation, newRoataion, rotationSpeed * 4 * Time.deltaTime);
-            }
 
-            transform.position += moveDir * Time.deltaTime * Speed * Getkey_speed;
+                transform.position += moveDir * Time.deltaTime * Speed * Getkey_speed / 2;
+            }
         }
         else
         {
