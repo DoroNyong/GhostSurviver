@@ -51,7 +51,7 @@ public class CameraManager : MonoBehaviour
 
         int layer_mask = LayerMask.GetMask("Default");
 
-        if(Physics.Raycast(ray, out hit, 100f, layer_mask))
+        if(Physics.Raycast(ray, out hit, 30f, layer_mask))
         {
             Vector3 hitPosition = hit.point;
             crossHair.transform.position = hitPosition;
