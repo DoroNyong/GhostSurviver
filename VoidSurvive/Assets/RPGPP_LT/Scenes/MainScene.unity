@@ -1538,10 +1538,9 @@ MonoBehaviour:
   - {fileID: 7819093044266986429, guid: 0374ed7675e22154c88b9dfeb1cf3250, type: 3}
   - {fileID: 3866285398821535078, guid: 7187b46f520cbfd4297a08dd4fbcfb02, type: 3}
   enemies: []
-  maxCreateTime: 2
-  minCreateTime: 0.5
-  minEnemy: 10
-  maxEnemy: 20
+  createTime: 0
+  minEnemy: 5
+  maxEnemy: 10
   elitePercentage: 10
   enemyPoint: {fileID: 1406520888}
 --- !u!4 &1976997882

@@ -14,10 +14,10 @@ public class EnemyManager : MonoBehaviour
     public GameObject[] enemyPrefabs;
     public List<GameObject> enemies = new List<GameObject>();
 
-    public float maxCreateTime = 5f;
-    public float minCreateTime = 1f;
-    public int minEnemy = 5;
-    public int maxEnemy = 10;
+    public float maxCreateTime = 2f;
+    public float minCreateTime = 0.5f;
+    public int minEnemy = 10;
+    public int maxEnemy = 20;
     public float elitePercentage = 10;
 
     private bool once = true;
@@ -59,9 +59,9 @@ public class EnemyManager : MonoBehaviour
         {
             if (playerManager.isGameOver && once)
             {
-                maxCreateTime = 0.3f;
-                minCreateTime = 0.3f;
-                maxEnemy = 50;
+                maxCreateTime = 0.15f;
+                minCreateTime = 0.15f;
+                maxEnemy = 100;
                 once = false;
             }
 

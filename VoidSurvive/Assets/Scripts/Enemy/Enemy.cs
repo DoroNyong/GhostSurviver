@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour
 
     public bool isDead = false;
 
+    private bool once = true;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -35,6 +37,12 @@ public class Enemy : MonoBehaviour
 
     private void Move()
     {
+        if (playerManager.isGameOver && once)
+        {
+            speed = 10f;
+            once = false;
+        }
+
         if (!isDead)
         {
             Vector3 lookPlayer = (Player.transform.position - gameObject.transform.position).normalized;
@@ -43,7 +51,7 @@ public class Enemy : MonoBehaviour
             Quaternion newRoataion = Quaternion.LookRotation(enemyMoveDir);
             gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, newRoataion, 2f * Time.deltaTime);
 
-            transform.position += enemyMoveDir * Time.deltaTime * 4f;
+            transform.position += enemyMoveDir * Time.deltaTime * speed;
         }
     }
 
