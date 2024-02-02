@@ -23,5 +23,7 @@ public class PlayerManager : MonoBehaviour
 
     public bool isAiming = false;
 
+    public bool isGameOver = false;
+
     public GameObject aimPoint = null;
 }

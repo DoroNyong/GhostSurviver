@@ -39,8 +39,8 @@ public class CameraManager : MonoBehaviour
         }
         else
         {
-            crossHair.SetActive(true);
             PositionCrossHair();
+            crossHair.SetActive(true);
         }
     }
 
@@ -51,7 +51,7 @@ public class CameraManager : MonoBehaviour
 
         int layer_mask = LayerMask.GetMask("Default");
 
-        if(Physics.Raycast(ray, out hit, 30f, layer_mask))
+        if(Physics.Raycast(ray, out hit, 25f, layer_mask))
         {
             Vector3 hitPosition = hit.point;
             crossHair.transform.position = hitPosition;
