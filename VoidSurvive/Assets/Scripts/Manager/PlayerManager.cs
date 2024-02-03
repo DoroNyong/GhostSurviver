@@ -8,6 +8,8 @@ public class PlayerManager : MonoBehaviour
 
     public bool isMove = false;
     public bool isAiming = false;
+    public bool isAimingShot = false;
+    public bool isShot = true;
 
     public bool isGameOver = false;
 

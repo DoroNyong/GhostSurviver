@@ -16,10 +16,16 @@ public class PlayerAction : MonoBehaviour
     private static bool isMove;
 
     public Transform shotPos;
+    public Transform targetPos;
+
+    public Vector3 targetDir;
+
+    private Animator animator;
 
     private void Start()
     {
         playerManager = PlayerManager.instance;
+        animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
     }
 
     void Update()
@@ -89,7 +95,8 @@ public class PlayerAction : MonoBehaviour
                 Quaternion newRoataion = Quaternion.LookRotation(zoomMoveDir);
                 characterBody.rotation = Quaternion.Slerp(characterBody.rotation, newRoataion, rotationSpeed * 4 * Time.deltaTime);
 
-                this.gameObject.transform.position += moveDir * Time.deltaTime * playerManager.speed * getKeySpeed / 2;
+                // 조준시 이동은 애니메이션 미구현
+                //this.gameObject.transform.position += moveDir * Time.deltaTime * playerManager.speed * getKeySpeed / 2;
             }
         }
         else
@@ -114,11 +121,23 @@ public class PlayerAction : MonoBehaviour
         else
         {
             playerManager.isAiming = true;
-            if (Input.GetMouseButtonDown(0))
+
+            if (Input.GetMouseButton(0))
             {
-                Shot();
+                if (playerManager.isAimingShot && playerManager.isShot)
+                {
+                    ShotCoolCheck();
+                }
             }
         }
+    }
+
+    private void ShotCoolCheck()
+    {
+        playerManager.isShot = false;
+        Shot();
+        animator.SetTrigger("isShot");
+        StartCoroutine(ShotCool(0.2f));
     }
 
     private void Shot()
@@ -126,6 +145,24 @@ public class PlayerAction : MonoBehaviour
         var bulletGo = ObjectPoolManager.instance.GetGo("Bullet");
 
         bulletGo.transform.position = shotPos.position;
+
+        targetPos = playerManager.aimPoint.transform;
+        targetDir = (targetPos.position - shotPos.transform.position).normalized;
+        Quaternion rotation = Quaternion.LookRotation(targetDir);
+        shotPos.transform.rotation = rotation;
+        shotPos.transform.Rotate(Vector3.right * 90);
+
+        bulletGo.transform.rotation = shotPos.rotation;
     }
 
+    IEnumerator ShotCool(float rapid)
+    {
+        float ShotCool = 1f;
+        while (ShotCool > 0f)
+        {
+            ShotCool -= Time.deltaTime / rapid;
+            yield return new WaitForFixedUpdate();
+        }
+        playerManager.isShot = true;
+    }
 }

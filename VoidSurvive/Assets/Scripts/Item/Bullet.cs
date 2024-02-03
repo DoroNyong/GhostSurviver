@@ -15,13 +15,6 @@ public class Bullet : PoolAble
     private void Start()
     {
         playerManager = PlayerManager.instance;
-        targetPos = playerManager.aimPoint.transform;
-        Debug.Log(targetPos.position);
-        targetDir = (targetPos.position - this.gameObject.transform.position).normalized;
-        Quaternion rotation = Quaternion.LookRotation(targetDir);
-        transform.rotation = rotation;
-        transform.Rotate(Vector3.right * 90);
-        Debug.Log(targetDir);
     }
 
     void Update()
@@ -33,7 +26,7 @@ public class Bullet : PoolAble
             Pool.Release(this.gameObject);
         }
 
-        this.gameObject.transform.position += targetDir * Time.deltaTime * 5f;
+        this.gameObject.transform.Translate(Vector3.up * Time.deltaTime * 20f);
     }
 
     private void OnTriggerEnter(Collider other)

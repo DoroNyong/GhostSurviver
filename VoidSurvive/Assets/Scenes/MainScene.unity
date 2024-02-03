@@ -1121,6 +1121,8 @@ MonoBehaviour:
   cameraArm: {fileID: 118204633}
   rotationSpeed: 5
   shotPos: {fileID: 393470426}
+  targetPos: {fileID: 0}
+  targetDir: {x: 0, y: 0, z: 0}
 --- !u!54 &1200795947
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1185,6 +1187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMove: 0
   isAiming: 0
+  isAimingShot: 0
+  isShot: 1
   isGameOver: 0
   aimPoint: {fileID: 0}
   player: {fileID: 0}

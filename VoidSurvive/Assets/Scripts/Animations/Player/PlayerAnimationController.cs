@@ -54,11 +54,6 @@ public class PlayerAnimationController : MonoBehaviour
         else
         {
             animator.SetBool("isAiming", true);
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                animator.SetTrigger("isShot");
-            }
         }
     }
 }
