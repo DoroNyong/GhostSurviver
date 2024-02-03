@@ -11,8 +11,6 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private PlayerManager playerManager;
 
     public Transform[] spawnPoints;
-    public GameObject[] enemyPrefabs;
-    public List<GameObject> enemies = new List<GameObject>();
 
     public int curEnemy = 0;
 

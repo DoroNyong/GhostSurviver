@@ -6,6 +6,17 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
 
+    public bool isMove = false;
+    public bool isAiming = false;
+
+    public bool isGameOver = false;
+
+    public GameObject aimPoint = null;
+    public GameObject player;
+
+    public int hp = 5;
+    public float speed = 5f;
+
     private void Awake()
     {
         if (instance == null)
@@ -17,6 +28,8 @@ public class PlayerManager : MonoBehaviour
             Destroy(instance);
             return;
         }
+
+        player = this.gameObject;
     }
 
     private void Update()
@@ -28,14 +41,4 @@ public class PlayerManager : MonoBehaviour
             isGameOver = true;
         }
     }
-
-    public bool isMove = false;
-    public bool isAiming = false;
-
-    public bool isGameOver = false;
-
-    public GameObject aimPoint = null;
-
-    public int hp = 5;
-    public float speed = 5f;
 }

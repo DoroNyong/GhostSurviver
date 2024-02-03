@@ -48,13 +48,13 @@ public class Enemy : PoolAble
 
         if (!isDead)
         {
-            Vector3 lookPlayer = (Player.transform.position - gameObject.transform.position).normalized;
+            Vector3 lookPlayer = (Player.transform.position - this.gameObject.transform.position).normalized;
             Vector3 enemyMoveDir = lookPlayer;
 
             Quaternion newRoataion = Quaternion.LookRotation(enemyMoveDir);
             gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, newRoataion, 2f * Time.deltaTime);
 
-            transform.position += enemyMoveDir * Time.deltaTime * speed;
+            this.gameObject.transform.position += enemyMoveDir * Time.deltaTime * speed;
         }
     }
 
@@ -63,6 +63,10 @@ public class Enemy : PoolAble
         if (!isDead)
         {
             hp -= 1;
+            if (hp <= 0)
+            {
+                StartCoroutine(Dead());
+            }
         }
     }
 
@@ -70,13 +74,18 @@ public class Enemy : PoolAble
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            isDead = true;
             StartCoroutine(Dead());
+        }
+
+        if (other.gameObject.CompareTag("Bullet"))
+        {
+            Hit();
         }
     }
 
     IEnumerator Dead()
     {
+        isDead = true;
         animator.SetTrigger("isDead");
         enemyManager.curEnemy -= 1;
         capsuleCollider.enabled = false;

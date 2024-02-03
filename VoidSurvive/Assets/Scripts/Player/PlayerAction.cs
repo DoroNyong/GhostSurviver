@@ -79,7 +79,7 @@ public class PlayerAction : MonoBehaviour
                 Quaternion newRotation = Quaternion.LookRotation(moveDir);
                 characterBody.rotation = Quaternion.Slerp(characterBody.rotation, newRotation, rotationSpeed * Time.deltaTime);
 
-                transform.position += moveDir * Time.deltaTime * playerManager.speed * getKeySpeed;
+                this.gameObject.transform.position += moveDir * Time.deltaTime * playerManager.speed * getKeySpeed;
             }
             else
             {
@@ -89,7 +89,7 @@ public class PlayerAction : MonoBehaviour
                 Quaternion newRoataion = Quaternion.LookRotation(zoomMoveDir);
                 characterBody.rotation = Quaternion.Slerp(characterBody.rotation, newRoataion, rotationSpeed * 4 * Time.deltaTime);
 
-                transform.position += moveDir * Time.deltaTime * playerManager.speed * getKeySpeed / 2;
+                this.gameObject.transform.position += moveDir * Time.deltaTime * playerManager.speed * getKeySpeed / 2;
             }
         }
         else
@@ -123,7 +123,9 @@ public class PlayerAction : MonoBehaviour
 
     private void Shot()
     {
-        Debug.Log("»§¾ß");
+        var bulletGo = ObjectPoolManager.instance.GetGo("Bullet");
+
+        bulletGo.transform.position = shotPos.position;
     }
 
 }

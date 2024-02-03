@@ -4,23 +4,43 @@ using UnityEngine;
 using UnityEngine.Pool;
 
 public class Bullet : PoolAble
-{    
+{
+    private PlayerManager playerManager;
 
-    public float speed = 5f;
+    [SerializeField] private Transform targetPos;
+    [SerializeField] private Vector3 targetDir;
+
+    [SerializeField] private float distance;
+
+    private void Start()
+    {
+        playerManager = PlayerManager.instance;
+        targetPos = playerManager.aimPoint.transform;
+        Debug.Log(targetPos.position);
+        targetDir = (targetPos.position - this.gameObject.transform.position).normalized;
+        Quaternion rotation = Quaternion.LookRotation(targetDir);
+        transform.rotation = rotation;
+        transform.Rotate(Vector3.right * 90);
+        Debug.Log(targetDir);
+    }
 
     void Update()
     {
+        distance = Vector3.Magnitude(playerManager.player.transform.position - this.gameObject.transform.position);
 
-        // 총알이 많이 날라가면 삭제 해주기
-        if (this.transform.position.y > 5)
+        if (distance > 40)
         {
-            // 이제 자신이 Destroy를 하지 않는다.
-            //Destroy(this.gameObject);
-
-            // 오브젝트 풀에 반환
             Pool.Release(this.gameObject);
         }
 
-        this.transform.Translate(Vector3.up * speed * Time.deltaTime);
+        this.gameObject.transform.position += targetDir * Time.deltaTime * 5f;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Pool.Release(this.gameObject);
+        }
     }
 }
