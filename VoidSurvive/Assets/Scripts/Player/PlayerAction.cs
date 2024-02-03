@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerAction : MonoBehaviour
 {
     [SerializeField] private PlayerManager playerManager;
 
@@ -14,6 +14,8 @@ public class PlayerMove : MonoBehaviour
     public int rotationSpeed = 5;
 
     private static bool isMove;
+
+    public Transform shotPos;
 
     private void Start()
     {
@@ -112,7 +114,16 @@ public class PlayerMove : MonoBehaviour
         else
         {
             playerManager.isAiming = true;
+            if (Input.GetMouseButtonDown(0))
+            {
+                Shot();
+            }
         }
+    }
+
+    private void Shot()
+    {
+        Debug.Log("»§¾ß");
     }
 
 }
