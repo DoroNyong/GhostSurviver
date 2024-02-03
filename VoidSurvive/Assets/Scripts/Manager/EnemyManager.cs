@@ -14,6 +14,8 @@ public class EnemyManager : MonoBehaviour
     public GameObject[] enemyPrefabs;
     public List<GameObject> enemies = new List<GameObject>();
 
+    public int curEnemy = 0;
+
     public float maxCreateTime = 2f;
     public float minCreateTime = 0.5f;
     public int minEnemy = 10;
@@ -43,14 +45,7 @@ public class EnemyManager : MonoBehaviour
         playerManager = PlayerManager.instance;
         RandomSeed();
 
-        if (enemyPrefabs.Length > 0)
-        {
-            StartCoroutine(CreateMonster());
-        }
-        else
-        {
-            Debug.Log("에너미프리팹 비어있음");
-        }
+        StartCoroutine(CreateMonster());
     }
 
     IEnumerator CreateMonster()
@@ -65,9 +60,12 @@ public class EnemyManager : MonoBehaviour
                 once = false;
             }
 
-            if (enemies.Count < maxEnemy)
+            if (curEnemy < maxEnemy)
             {
-                if (enemies.Count > minEnemy)
+
+                curEnemy += 1;
+
+                if (curEnemy > minEnemy)
                 {
                     yield return new WaitForSeconds(maxCreateTime);
                 }
@@ -77,20 +75,23 @@ public class EnemyManager : MonoBehaviour
                 }
 
                 int spawnPointIdx = Random.Range(0, spawnPoints.Length);
-                int enemyIdx;
 
                 int percentage = Random.Range(0, 100);
 
                 if (percentage > elitePercentage)
                 {
-                    enemyIdx = 0;
+                    var ghostGo = ObjectPoolManager.instance.GetGo("Ghost");
+
+                    ghostGo.transform.position = spawnPoints[spawnPointIdx].position;
+                    ghostGo.transform.rotation = spawnPoints[spawnPointIdx].rotation;
                 }
                 else
                 {
-                    enemyIdx = 1;
-                }
+                    var ghostGo = ObjectPoolManager.instance.GetGo("EliteGhost");
 
-                enemies.Add(Instantiate(enemyPrefabs[enemyIdx], spawnPoints[spawnPointIdx].position, spawnPoints[spawnPointIdx].rotation, enemyPoint));
+                    ghostGo.transform.position = spawnPoints[spawnPointIdx].position;
+                    ghostGo.transform.rotation = spawnPoints[spawnPointIdx].rotation;
+                }
             }
             else
             {

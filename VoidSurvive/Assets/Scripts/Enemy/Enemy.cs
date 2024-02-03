@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
-public class Enemy : MonoBehaviour
+public class Enemy : PoolAble
 {
     private EnemyManager enemyManager;
     protected PlayerManager playerManager;
+    private CapsuleCollider capsuleCollider;
 
     public float hp;
     public float speed;
@@ -21,6 +23,7 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
         Player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -75,9 +78,12 @@ public class Enemy : MonoBehaviour
     IEnumerator Dead()
     {
         animator.SetTrigger("isDead");
-        enemyManager.enemies.Remove(this.gameObject);
+        enemyManager.curEnemy -= 1;
+        capsuleCollider.enabled = false;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length + 0.01f);
-        Destroy(gameObject);
+        ReleaseObject();
+        capsuleCollider.enabled = true;
+        isDead = false;
     }
 
     public virtual void Setting(float hp, float speed)
