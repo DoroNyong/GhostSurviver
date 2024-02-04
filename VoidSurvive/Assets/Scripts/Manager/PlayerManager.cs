@@ -13,7 +13,8 @@ public class PlayerManager : MonoBehaviour
 
     public bool isGameOver = false;
 
-    public GameObject aimPoint = null;
+    public GameObject zoomPoint;
+    public GameObject aimPoint;
     public GameObject player;
 
     public int hp = 5;

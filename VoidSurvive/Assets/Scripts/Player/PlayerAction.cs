@@ -87,10 +87,9 @@ public class PlayerAction : MonoBehaviour
             }
             else
             {
-                Vector3 zoomForward = new Vector3(playerManager.aimPoint.transform.forward.x, 0f, playerManager.aimPoint.transform.forward.z).normalized;
-                Vector3 zoomMoveDir = -zoomForward;
+                Vector3 zoomDir = new Vector3(playerManager.zoomPoint.transform.forward.x, 0f, playerManager.zoomPoint.transform.forward.z).normalized;
 
-                Quaternion newRoataion = Quaternion.LookRotation(zoomMoveDir);
+                Quaternion newRoataion = Quaternion.LookRotation(zoomDir);
                 characterBody.rotation = Quaternion.Slerp(characterBody.rotation, newRoataion, rotationSpeed * 4 * Time.deltaTime);
 
                 // 조준시 이동은 애니메이션 미구현
@@ -101,10 +100,9 @@ public class PlayerAction : MonoBehaviour
         {
             if (playerManager.isAiming)
             {
-                Vector3 zoomForward = new Vector3(playerManager.aimPoint.transform.forward.x, 0f, playerManager.aimPoint.transform.forward.z).normalized;
-                Vector3 zoomMoveDir = -zoomForward;
+                Vector3 zoomDir = new Vector3(playerManager.zoomPoint.transform.forward.x, 0f, playerManager.zoomPoint.transform.forward.z).normalized;
 
-                Quaternion newRoataion = Quaternion.LookRotation(zoomMoveDir);
+                Quaternion newRoataion = Quaternion.LookRotation(zoomDir);
                 characterBody.rotation = Quaternion.Slerp(characterBody.rotation, newRoataion, rotationSpeed * 4 * Time.deltaTime);
             }
         }

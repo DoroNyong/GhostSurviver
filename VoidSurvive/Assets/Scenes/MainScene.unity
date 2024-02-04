@@ -864,6 +864,7 @@ MonoBehaviour:
   isAimingShot: 0
   isShot: 1
   isGameOver: 0
+  zoomPoint: {fileID: 920636555}
   aimPoint: {fileID: 0}
   player: {fileID: 0}
   hp: 5
@@ -1026,7 +1027,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1976997881
 MonoBehaviour:
   m_ObjectHideFlags: 0

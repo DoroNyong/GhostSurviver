@@ -30,7 +30,7 @@ public class CameraManager : MonoBehaviour
         else
         {
             transform.position = Vector3.MoveTowards(gameObject.transform.position, zoomPosition.position, 30f * Time.deltaTime);
-            if (playerManager.isAimingShot )
+            if (playerManager.isAimingShot)
             {
                 PositionCrossHair();
                 crossHair.SetActive(true);
