@@ -7,7 +7,7 @@ public class Enemy : PoolAble
 {
     private EnemyManager enemyManager;
     protected PlayerManager playerManager;
-    private SkinnedMeshRenderer skinnedMeshRenderer;
+    protected SkinnedMeshRenderer skinnedMeshRenderer;
     private CapsuleCollider capsuleCollider;
 
     public float hp;
@@ -21,21 +21,21 @@ public class Enemy : PoolAble
 
     private bool once = true;
 
-    private Color originColor;
+    protected Color originColor;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider>();
-        Player = GameObject.FindGameObjectWithTag("Player");
+        skinnedMeshRenderer = transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
+        skinnedMeshRenderer.material = Instantiate(skinnedMeshRenderer.material);
     }
 
     protected virtual void Start()
     {
         enemyManager = EnemyManager.instance;
         playerManager = PlayerManager.instance;
-        skinnedMeshRenderer = transform.GetChild(0).gameObject.GetComponent<SkinnedMeshRenderer>();
-        originColor = skinnedMeshRenderer.material.color;
+        Player = playerManager.player;
     }
 
     private void FixedUpdate()
@@ -88,6 +88,23 @@ public class Enemy : PoolAble
         }
     }
 
+    public void CreateEnemy()
+    {
+        StartCoroutine(Create());
+    }
+
+    IEnumerator Create()
+    {
+        float x = 0;
+
+        while (x < 0.667f)
+        {
+            x += Time.deltaTime / 1f * 0.667f;
+            skinnedMeshRenderer.material.color = new Vector4(originColor.r, originColor.g, originColor.b, x);
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
     IEnumerator Dead()
     {
         isDead = true;
@@ -114,7 +131,7 @@ public class Enemy : PoolAble
     private void RestoreSetting()
     {
         ReleaseObject();
-        skinnedMeshRenderer.material.color = originColor;
+        //skinnedMeshRenderer.material.color = originColor;
         capsuleCollider.enabled = true;
         isDead = false;
     }

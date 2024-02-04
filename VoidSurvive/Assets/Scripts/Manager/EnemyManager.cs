@@ -9,6 +9,7 @@ public class EnemyManager : MonoBehaviour
     public static EnemyManager instance;
 
     [SerializeField] private PlayerManager playerManager;
+    private Enemy enemy;
 
     public Transform EnemySpawnPointArm;
     public Transform EnemySpawnPoint;
@@ -80,20 +81,24 @@ public class EnemyManager : MonoBehaviour
 
                 int percentage = Random.Range(0, 100);
 
+                string enemyName;
+
                 if (percentage > elitePercentage)
                 {
-                    var ghostGo = ObjectPoolManager.instance.GetGo("Ghost");
-
-                    ghostGo.transform.position = EnemySpawnPoint.position;
-                    ghostGo.transform.rotation = EnemySpawnPoint.rotation;
+                    enemyName = "Ghost";
                 }
                 else
                 {
-                    var ghostGo = ObjectPoolManager.instance.GetGo("EliteGhost");
-
-                    ghostGo.transform.position = EnemySpawnPoint.position;
-                    ghostGo.transform.rotation = EnemySpawnPoint.rotation;
+                    enemyName = "EliteGhost";
                 }
+
+                var ghostGo = ObjectPoolManager.instance.GetGo(enemyName);
+
+                ghostGo.transform.position = EnemySpawnPoint.position;
+                ghostGo.transform.rotation = EnemySpawnPoint.rotation;
+
+                enemy = ghostGo.GetComponent<Enemy>();
+                enemy.CreateEnemy();
             }
             else
             {
