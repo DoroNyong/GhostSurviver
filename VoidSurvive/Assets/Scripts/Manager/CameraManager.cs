@@ -9,6 +9,7 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private Transform noZoomPosition;
     [SerializeField] private Transform zoomPosition;
+    [SerializeField] private Transform rayPostion;
 
     public GameObject crossHair;
 
@@ -41,7 +42,7 @@ public class CameraManager : MonoBehaviour
     private void PositionCrossHair()
     {
         RaycastHit hit;
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+        Ray ray = new Ray(rayPostion.position, rayPostion.forward);
 
         int layer_mask = LayerMask.GetMask("Default");
 
