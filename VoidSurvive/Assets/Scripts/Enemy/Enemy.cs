@@ -131,7 +131,6 @@ public class Enemy : PoolAble
     private void RestoreSetting()
     {
         ReleaseObject();
-        //skinnedMeshRenderer.material.color = originColor;
         capsuleCollider.enabled = true;
         isDead = false;
     }

@@ -56,4 +56,9 @@ public class PlayerAnimationController : MonoBehaviour
             animator.SetBool("isAiming", true);
         }
     }
+
+    public void IsAimingShot()
+    {
+        playerManager.isAimingShot = true;
+    }
 }
