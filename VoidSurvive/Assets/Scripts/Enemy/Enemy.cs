@@ -96,10 +96,7 @@ public class Enemy : PoolAble
         capsuleCollider.enabled = false;
         StartCoroutine(DeadColor(animator.GetCurrentAnimatorStateInfo(0).length));
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length + 0.01f);
-        ReleaseObject();
-        skinnedMeshRenderer.material.color = originColor;
-        capsuleCollider.enabled = true;
-        isDead = false;
+        RestoreSetting();
     }
 
     IEnumerator DeadColor(float deadTime)
@@ -109,13 +106,17 @@ public class Enemy : PoolAble
         while (x > 0f)
         {
             x -= Time.deltaTime / deadTime * y;
-            skinnedMeshRenderer.material.color = new Vector4
-                (originColor.r,
-                originColor.g,
-                originColor.b,
-                x);
+            skinnedMeshRenderer.material.color = new Vector4(originColor.r, originColor.g, originColor.b, x);
             yield return new WaitForFixedUpdate();
         }
+    }
+
+    private void RestoreSetting()
+    {
+        ReleaseObject();
+        skinnedMeshRenderer.material.color = originColor;
+        capsuleCollider.enabled = true;
+        isDead = false;
     }
 
     public virtual void Setting(float hp, float speed)

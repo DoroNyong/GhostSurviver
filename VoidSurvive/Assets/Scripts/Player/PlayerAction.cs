@@ -13,12 +13,10 @@ public class PlayerAction : MonoBehaviour
 
     public int rotationSpeed = 5;
 
-    private static bool isMove;
-
     public Transform shotPos;
     public Transform targetPos;
 
-    public Vector3 targetDir;
+    private Vector3 targetDir;
 
     private Animator animator;
 

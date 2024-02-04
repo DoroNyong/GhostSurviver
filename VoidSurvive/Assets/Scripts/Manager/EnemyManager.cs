@@ -10,7 +10,8 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] private PlayerManager playerManager;
 
-    public Transform[] spawnPoints;
+    public Transform EnemySpawnPointArm;
+    public Transform EnemySpawnPoint;
 
     public int curEnemy = 0;
 
@@ -72,7 +73,10 @@ public class EnemyManager : MonoBehaviour
                     yield return new WaitForSeconds(minCreateTime);
                 }
 
-                int spawnPointIdx = Random.Range(0, spawnPoints.Length);
+                float x = Random.Range(3f, 13f);
+                float y = Random.Range(0, 360f);
+                Vector3 spawnPointAngle = EnemySpawnPointArm.rotation.eulerAngles;
+                EnemySpawnPointArm.rotation = Quaternion.Euler(x, y, spawnPointAngle.z);
 
                 int percentage = Random.Range(0, 100);
 
@@ -80,15 +84,15 @@ public class EnemyManager : MonoBehaviour
                 {
                     var ghostGo = ObjectPoolManager.instance.GetGo("Ghost");
 
-                    ghostGo.transform.position = spawnPoints[spawnPointIdx].position;
-                    ghostGo.transform.rotation = spawnPoints[spawnPointIdx].rotation;
+                    ghostGo.transform.position = EnemySpawnPoint.position;
+                    ghostGo.transform.rotation = EnemySpawnPoint.rotation;
                 }
                 else
                 {
                     var ghostGo = ObjectPoolManager.instance.GetGo("EliteGhost");
 
-                    ghostGo.transform.position = spawnPoints[spawnPointIdx].position;
-                    ghostGo.transform.rotation = spawnPoints[spawnPointIdx].rotation;
+                    ghostGo.transform.position = EnemySpawnPoint.position;
+                    ghostGo.transform.rotation = EnemySpawnPoint.rotation;
                 }
             }
             else
