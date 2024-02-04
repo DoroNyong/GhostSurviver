@@ -7,6 +7,7 @@ public class Enemy : PoolAble
 {
     private EnemyManager enemyManager;
     protected PlayerManager playerManager;
+    private SkinnedMeshRenderer skinnedMeshRenderer;
     private CapsuleCollider capsuleCollider;
 
     public float hp;
@@ -20,6 +21,8 @@ public class Enemy : PoolAble
 
     private bool once = true;
 
+    private Color originColor;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -31,6 +34,8 @@ public class Enemy : PoolAble
     {
         enemyManager = EnemyManager.instance;
         playerManager = PlayerManager.instance;
+        skinnedMeshRenderer = transform.GetChild(0).gameObject.GetComponent<SkinnedMeshRenderer>();
+        originColor = skinnedMeshRenderer.material.color;
     }
 
     private void FixedUpdate()
@@ -89,10 +94,28 @@ public class Enemy : PoolAble
         animator.SetTrigger("isDead");
         enemyManager.curEnemy -= 1;
         capsuleCollider.enabled = false;
+        StartCoroutine(DeadColor(animator.GetCurrentAnimatorStateInfo(0).length));
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length + 0.01f);
         ReleaseObject();
+        skinnedMeshRenderer.material.color = originColor;
         capsuleCollider.enabled = true;
         isDead = false;
+    }
+
+    IEnumerator DeadColor(float deadTime)
+    {
+        float x = skinnedMeshRenderer.material.color.a;
+        float y = x;
+        while (x > 0f)
+        {
+            x -= Time.deltaTime / deadTime * y;
+            skinnedMeshRenderer.material.color = new Vector4
+                (originColor.r,
+                originColor.g,
+                originColor.b,
+                x);
+            yield return new WaitForFixedUpdate();
+        }
     }
 
     public virtual void Setting(float hp, float speed)
