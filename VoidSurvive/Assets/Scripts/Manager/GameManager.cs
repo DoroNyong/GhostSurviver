@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     public float time;
 
+    public bool isSetting = false;
     public bool isGameOver = false;
 
     private bool once = true;
@@ -27,14 +28,24 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        CursorLock();
     }
 
     private void Update()
     {
         if (isGameOver && once)
         {
-            Cursor.lockState = CursorLockMode.None;
+            CursorFree();
         }
+    }
+
+    public void CursorFree()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
+    
+    public void CursorLock()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

@@ -30,7 +30,7 @@ public class PlayerAction : MonoBehaviour
 
     void Update()
     {
-        if (!gameManager.isGameOver)
+        if (!gameManager.isGameOver && !gameManager.isSetting)
         {
             LookAround();
             Aim();

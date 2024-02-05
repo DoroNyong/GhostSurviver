@@ -53,7 +53,7 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         Scene currentScene = SceneManager.GetActiveScene();
-        if (currentScene.name == "StartScene")
+        if (currentScene.name == "TitleScene")
         {
             BgmPlay(BGM_Start);
         }

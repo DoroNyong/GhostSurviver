@@ -26,7 +26,7 @@ public class Bullet : PoolAble
             Pool.Release(this.gameObject);
         }
 
-        this.gameObject.transform.Translate(Vector3.up * Time.deltaTime * 20f);
+        this.gameObject.transform.Translate(Vector3.up * Time.deltaTime * 100f);
     }
 
     private void OnTriggerEnter(Collider other)
