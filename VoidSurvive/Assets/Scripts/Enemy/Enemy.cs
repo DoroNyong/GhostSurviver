@@ -5,14 +5,16 @@ using UnityEngine.Pool;
 
 public class Enemy : PoolAble
 {
-    private GameManager gameManager;
+    protected GameManager gameManager;
     protected PlayerManager playerManager;
     private EnemyManager enemyManager;
     protected SkinnedMeshRenderer skinnedMeshRenderer;
     private CapsuleCollider capsuleCollider;
 
     public float hp;
+    public int attack;
     public float speed;
+    public int score;
 
     public GameObject Player = null;
 
@@ -72,15 +74,17 @@ public class Enemy : PoolAble
             hp -= 1;
             if (hp <= 0)
             {
+                gameManager.IncreaseScore(score);
                 StartCoroutine(Dead());
             }
         }
     }
 
-    protected virtual void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            playerManager.HitPlayerHp(attack);
             StartCoroutine(Dead());
         }
 
@@ -137,9 +141,11 @@ public class Enemy : PoolAble
         isDead = false;
     }
 
-    public virtual void Setting(float hp, float speed)
+    public virtual void Setting(float hp, int attack, float speed, int score)
     {
         this.hp = hp;
+        this.attack = attack;
         this.speed = speed;
+        this.score = score;
     }
 }

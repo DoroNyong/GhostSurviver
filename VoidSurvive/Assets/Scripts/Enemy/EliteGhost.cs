@@ -17,15 +17,6 @@ public class EliteGhost : Enemy
     protected override void Start()
     {
         base.Start();
-        Setting(3f, 4f);
-    }
-
-    protected override void OnTriggerEnter(Collider other)
-    {
-        base.OnTriggerEnter(other);
-        if (other.gameObject.CompareTag("Player"))
-        {
-            playerManager.HitPlayerHp(2);
-        }
+        Setting(3f, 2, 4f, 5);
     }
 }

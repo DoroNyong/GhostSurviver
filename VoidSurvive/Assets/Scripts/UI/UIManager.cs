@@ -73,13 +73,14 @@ public class UIManager : MonoBehaviour
     public void GoTitleScene()
     {
         //soundManager.PlayClickEffect();
-        Time.timeScale = 1;
+        //soundManager.StopBGM();
         SceneManager.LoadScene("TitleScene");
     }
 
     public void ExitGame()
     {
         //soundManager.PlayClickEffect();
+        //soundManager.StopBGM();
         Application.Quit();
     }
 }

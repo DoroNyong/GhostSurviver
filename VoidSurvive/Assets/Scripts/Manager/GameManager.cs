@@ -6,7 +6,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public float time;
+    [SerializeField] private Score scoreSc;
+
+    public float time = 0;
+    public int score = 0;
 
     public bool isSetting = false;
     public bool isGameOver = false;
@@ -28,6 +31,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        scoreSc = Score.instance;
         CursorLock();
     }
 
@@ -47,5 +51,11 @@ public class GameManager : MonoBehaviour
     public void CursorLock()
     {
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void IncreaseScore(int score)
+    {
+        this.score += score;
+        scoreSc.ScoreText(this.score);
     }
 }

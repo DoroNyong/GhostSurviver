@@ -9,12 +9,9 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
 
-    [SerializeField] private AudioClip BGM_Start;
-    [SerializeField] private AudioClip BGM_Lobby;
-    [SerializeField] private AudioClip BGM_Select;
-    [SerializeField] private AudioClip BGM_Main_Idle;
-    [SerializeField] private AudioClip BGM_Main_Berserk;
-    [SerializeField] private AudioClip BGM_End;
+    [SerializeField] private AudioClip BGM_Title;
+    [SerializeField] private AudioClip BGM_Main;
+    [SerializeField] private AudioClip BGM_GameOver;
 
     [SerializeField] private AudioClip clickEffect; 
     [SerializeField] private AudioClip cancelEffect;
@@ -32,9 +29,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private Slider BGMAudioSlider = null;
     [SerializeField] private Slider SFXAudioSlider = null;
 
-    [SerializeField] private float masterVolume = 0.5f;
-    [SerializeField] private float BGMVolume = 0.5f;
-    [SerializeField] private float SFXVolume = 0.5f;
+    [SerializeField] private float masterVolume = 0.6f;
+    [SerializeField] private float BGMVolume = 0.6f;
+    [SerializeField] private float SFXVolume = 0.6f;
 
     private void Awake()
     {
@@ -55,7 +52,7 @@ public class SoundManager : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name == "TitleScene")
         {
-            BgmPlay(BGM_Start);
+            BgmPlay(BGM_Title);
         }
     }
 
@@ -110,50 +107,23 @@ public class SoundManager : MonoBehaviour
 
     private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode loadSceneMode)
     {
-        Debug.Log("OnSceneLoaded");
-
+        Debug.Log("OnSceneLoaded" + scene.name);
         
-        if (scene.name == "StartScene")
+        if (scene.name == "TitleScene")
         {
-            BgmPlay(BGM_Start);
-        }
-        else if (scene.name == "Loading")
-        {
-            return;
-        }
-        else if (scene.name == "GameLobby")
-        {
-            BgmPlay(BGM_Lobby);
-        }
-        else if (scene.name == "MonsterSelectScene")
-        {
-            BgmPlay(BGM_Select);
+            BgmPlay(BGM_Title);
         }
         else if (scene.name == "MainScene")
         {
-            BgmPlay(BGM_Main_Idle);
-        }
-        else if (scene.name == "EndScene")
-        {
-            BgmPlay(BGM_End);
+            BgmPlay(BGM_Title);
         }
         else
         {
-            if (bgmAudioSource.clip != BGM_Start)
+            if (bgmAudioSource.clip != BGM_Title)
             {
-                BgmPlay(BGM_Start);
+                BgmPlay(BGM_Title);
             }
         }
-    }
-
-    public void PlayBGMMain_IDle()
-    {
-        BgmPlay(BGM_Main_Idle);
-    }
-
-    public void PlayBGMMain_Berserk()
-    {
-        BgmPlay(BGM_Main_Berserk);
     }
 
     private void BgmPlay(AudioClip clip)
