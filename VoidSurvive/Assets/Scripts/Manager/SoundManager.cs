@@ -187,15 +187,6 @@ public class SoundManager : MonoBehaviour
         masterMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
     }
 
-    public void SetMasterSlier(Slider MasterSlider)
-    {
-        MasterSlider.value = masterVolume;
-
-        masterAudioSlider = MasterSlider;
-
-        masterAudioSlider.onValueChanged.AddListener(SetMasterVolume);
-    }
-
     public void SetSlider(Slider MasterSlider, Slider BGMSlider, Slider SFXSlider)
     {
         MasterSlider.value = masterVolume;

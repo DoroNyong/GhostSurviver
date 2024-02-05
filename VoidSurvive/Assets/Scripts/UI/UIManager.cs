@@ -19,15 +19,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider SFXSlider;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         gameManager = GameManager.instance;
-        //soundManager = SoundManager.instance;
-        //soundManager.SetSlider(masterSlider, BGMSlider, SFXSlider);
+        soundManager = SoundManager.instance;
+        soundManager.SetSlider(masterSlider, BGMSlider, SFXSlider);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // 세팅 단축키
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -55,15 +54,11 @@ public class UIManager : MonoBehaviour
         }
         panels.Push(panel);
         panels.Peek().SetActive(true);
-        Debug.Log(panels.Peek().ToString());
-        Debug.Log(panels.Count);
     }
 
     public void PanelOff()
     {
         //soundManager.PlayClickEffect();
-        Debug.Log(panels.Peek().ToString());
-        Debug.Log(panels.Count);
         panels.Peek().SetActive(false);
         panels.Pop();
         if (panels.Count == 0)
