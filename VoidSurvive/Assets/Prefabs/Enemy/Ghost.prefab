@@ -823,8 +823,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.35
-  m_Height: 1.01
+  m_Radius: 0.45
+  m_Height: 1.2
   m_Direction: 1
   m_Center: {x: 0, y: 0.54, z: 0}
 --- !u!54 &2568463722625979543
@@ -867,7 +867,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 0
+  attack: 0
   speed: 0
+  score: 0
   Player: {fileID: 0}
   animator: {fileID: 0}
   isDead: 0
