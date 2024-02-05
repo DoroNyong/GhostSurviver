@@ -6,12 +6,17 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public float time;
+
+    public bool isGameOver = false;
+
+    private bool once = true;
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -23,5 +28,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void Update()
+    {
+        if (isGameOver && once)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 }

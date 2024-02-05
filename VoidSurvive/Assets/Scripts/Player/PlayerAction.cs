@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerAction : MonoBehaviour
 {
-    [SerializeField] private PlayerManager playerManager;
+    private GameManager gameManager;
+    private PlayerManager playerManager;
 
     public Transform characterBody;
     public Transform cameraArm;
@@ -22,13 +23,14 @@ public class PlayerAction : MonoBehaviour
 
     private void Start()
     {
+        gameManager = GameManager.instance;
         playerManager = PlayerManager.instance;
         animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
     }
 
     void Update()
     {
-        if (!playerManager.isGameOver)
+        if (!gameManager.isGameOver)
         {
             LookAround();
             Aim();

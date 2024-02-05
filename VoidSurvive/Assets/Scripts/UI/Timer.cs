@@ -7,34 +7,32 @@ using System;
 
 public class Timer : MonoBehaviour
 {
-    private PlayerManager playerManager;
+    private GameManager gameManager;
 
     [SerializeField] private TMP_Text timerText;
-
-    private float curTime;
 
     private int minute;
     private int second;
 
     private void Awake()
     {
-        curTime = 0;
         timerText = GetComponent<TMP_Text>();
     }
 
     private void Start()
     {
-        playerManager = PlayerManager.instance;
+        gameManager = GameManager.instance;
+        gameManager.time = 0;
         StartCoroutine(StartTimer());
     }
 
     IEnumerator StartTimer()
     {
-        while (!playerManager.isGameOver)
+        while (!gameManager.isGameOver)
         {
-            curTime += Time.deltaTime;
-            minute = (int)curTime / 60;
-            second = (int)curTime % 60;
+            gameManager.time += Time.deltaTime;
+            minute = (int)gameManager.time / 60;
+            second = (int)gameManager.time % 60;
             timerText.text = string.Format("{0:D2} : {1:D2}", minute, second);
             yield return null;
         }

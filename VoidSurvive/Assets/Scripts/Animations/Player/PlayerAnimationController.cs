@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
 {
+    GameManager gameManager;
     PlayerManager playerManager;
 
     [SerializeField] private Animator animator;
@@ -17,12 +18,13 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Start()
     {
+        gameManager = GameManager.instance;
         playerManager = PlayerManager.instance;
     }
 
     private void Update()
     {
-        if (!playerManager.isGameOver)
+        if (!gameManager.isGameOver)
         {
             AnimationUpdate();
         }

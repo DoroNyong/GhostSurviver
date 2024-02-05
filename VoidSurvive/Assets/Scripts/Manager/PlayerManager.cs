@@ -6,12 +6,12 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
 
+    private GameManager gameManager;
+
     public bool isMove = false;
     public bool isAiming = false;
     public bool isAimingShot = false;
     public bool isShot = true;
-
-    public bool isGameOver = false;
 
     public GameObject zoomPoint;
     public GameObject aimPoint;
@@ -35,13 +35,18 @@ public class PlayerManager : MonoBehaviour
         player = this.gameObject;
     }
 
+    private void Start()
+    {
+        gameManager = GameManager.instance;
+    }
+
     private void Update()
     {
         if (hp <= 0)
         {
             isMove = false;
             isAiming = false;
-            isGameOver = true;
+            gameManager.isGameOver = true;
         }
     }
 }

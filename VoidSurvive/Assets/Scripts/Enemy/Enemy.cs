@@ -5,8 +5,9 @@ using UnityEngine.Pool;
 
 public class Enemy : PoolAble
 {
-    private EnemyManager enemyManager;
+    private GameManager gameManager;
     protected PlayerManager playerManager;
+    private EnemyManager enemyManager;
     protected SkinnedMeshRenderer skinnedMeshRenderer;
     private CapsuleCollider capsuleCollider;
 
@@ -33,8 +34,9 @@ public class Enemy : PoolAble
 
     protected virtual void Start()
     {
-        enemyManager = EnemyManager.instance;
+        gameManager = GameManager.instance;
         playerManager = PlayerManager.instance;
+        enemyManager = EnemyManager.instance;
         Player = playerManager.player;
     }
 
@@ -45,7 +47,7 @@ public class Enemy : PoolAble
 
     private void Move()
     {
-        if (playerManager.isGameOver && once)
+        if (gameManager.isGameOver && once)
         {
             speed = 10f;
             once = false;

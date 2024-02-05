@@ -8,7 +8,7 @@ public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager instance;
 
-    [SerializeField] private PlayerManager playerManager;
+    private GameManager gameManager;
     private Enemy enemy;
 
     public Transform EnemySpawnPointArm;
@@ -42,7 +42,7 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        playerManager = PlayerManager.instance;
+        gameManager = GameManager.instance;
         RandomSeed();
 
         StartCoroutine(CreateMonster());
@@ -52,7 +52,7 @@ public class EnemyManager : MonoBehaviour
     {
         while (true)
         {
-            if (playerManager.isGameOver && once)
+            if (gameManager.isGameOver && once)
             {
                 maxCreateTime = 0.15f;
                 minCreateTime = 0.15f;
