@@ -25,7 +25,7 @@ public class EliteGhost : Enemy
         base.OnTriggerEnter(other);
         if (other.gameObject.CompareTag("Player"))
         {
-            playerManager.hp -= 2;
+            playerManager.HitPlayerHp(2);
         }
     }
 }

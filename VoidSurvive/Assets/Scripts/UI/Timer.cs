@@ -14,11 +14,6 @@ public class Timer : MonoBehaviour
     private int minute;
     private int second;
 
-    private void Awake()
-    {
-        timerText = GetComponent<TMP_Text>();
-    }
-
     private void Start()
     {
         gameManager = GameManager.instance;

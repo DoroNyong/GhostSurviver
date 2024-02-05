@@ -25,7 +25,7 @@ public class Ghost : Enemy
         base.OnTriggerEnter(other);
         if (other.gameObject.CompareTag("Player"))
         {
-            playerManager.hp -= 1;
+            playerManager.HitPlayerHp(1);
         }
     }
 }
