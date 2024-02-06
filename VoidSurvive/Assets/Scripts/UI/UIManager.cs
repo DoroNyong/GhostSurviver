@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms;
@@ -15,6 +16,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject settingPanel;
 
     [SerializeField] private GameObject gameOverPanel;
+    public TMP_Text scoreText;
+    public TMP_Text timerText;
 
     [SerializeField] private Slider masterSlider;
     [SerializeField] private Slider BGMSlider;
@@ -33,7 +36,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         // 세팅 단축키
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !gameManager.isGameOver)
         {
             if (!gameManager.isSetting)
             {
@@ -48,6 +51,8 @@ public class UIManager : MonoBehaviour
         if (gameManager.isGameOver && once)
         {
             gameOverPanel.SetActive(true);
+            scoreText.text = string.Format($"성불 점수 [ {gameManager.score} ]");
+            timerText.text = string.Format($"생존 시간 [ {((int)gameManager.time / 60):D2} : {((int)gameManager.time % 60):D2} ]");
             once = false;
         }
     }
@@ -78,6 +83,11 @@ public class UIManager : MonoBehaviour
             gameManager.isSetting = false;
             gameManager.CursorLock();
         }
+    }
+
+    public void ReStartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void GoTitleScene()

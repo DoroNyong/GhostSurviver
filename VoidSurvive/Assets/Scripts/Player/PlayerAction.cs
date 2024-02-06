@@ -166,4 +166,12 @@ public class PlayerAction : MonoBehaviour
         }
         playerManager.isShot = true;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Dead"))
+        {
+            playerManager.DeathFloor();
+        }
+    }
 }

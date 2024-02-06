@@ -29,12 +29,17 @@ public class Life : MonoBehaviour
     {
         if (hp > 0)
         {
-            LifeText.text = string.Format($"X {hp}");
+            LifeText.text = string.Format($"X  {hp}");
         }
         else
         {
-            gameLife.SetActive(false);
-            gameOverLife.SetActive(true);
+            Dead();
         }
+    }
+
+    public void Dead()
+    {
+        gameLife.SetActive(false);
+        gameOverLife.SetActive(true);
     }
 }

@@ -61,4 +61,13 @@ public class PlayerManager : MonoBehaviour
             soundManager.GameOverBGM();
         }
     }
+
+    public void DeathFloor()
+    {
+        life.Dead();
+        isMove = false;
+        isAiming = false;
+        gameManager.isGameOver = true;
+        soundManager.GameOverBGM();
+    }
 }

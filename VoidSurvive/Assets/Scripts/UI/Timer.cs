@@ -11,13 +11,15 @@ public class Timer : MonoBehaviour
 
     [SerializeField] private TMP_Text timerText;
 
+    private float curTime;
+
     private int minute;
     private int second;
 
     private void Start()
     {
         gameManager = GameManager.instance;
-        gameManager.time = 0;
+        curTime = 0;
         StartCoroutine(StartTimer());
     }
 
@@ -25,12 +27,12 @@ public class Timer : MonoBehaviour
     {
         while (!gameManager.isGameOver)
         {
-            gameManager.time += Time.deltaTime;
-            minute = (int)gameManager.time / 60;
-            second = (int)gameManager.time % 60;
-            timerText.text = string.Format("{0:D2} : {1:D2}", minute, second);
+            curTime += Time.deltaTime;
+            gameManager.time = curTime;
+            minute = (int)curTime / 60;
+            second = (int)curTime % 60;
+            timerText.text = minute.ToString("00") + " : " + second.ToString("00");
             yield return null;
         }
-        yield return null;
     }
 }
