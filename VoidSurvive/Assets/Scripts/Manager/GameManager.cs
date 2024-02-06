@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Score scoreSc;
 
-    public float time = 0;
+    public float time;
     public int score = 0;
 
     public bool isSetting = false;

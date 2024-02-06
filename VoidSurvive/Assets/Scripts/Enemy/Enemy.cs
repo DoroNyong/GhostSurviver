@@ -84,7 +84,7 @@ public class Enemy : PoolAble
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            playerManager.HitPlayerHp(attack);
+            playerManager.HitPlayerHp(attack, this.transform);
             StartCoroutine(Dead());
         }
 

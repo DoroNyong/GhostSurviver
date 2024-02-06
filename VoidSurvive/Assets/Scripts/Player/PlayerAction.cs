@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAction : MonoBehaviour
 {
     private GameManager gameManager;
+    private SoundManager soundManager;
     private PlayerManager playerManager;
 
     public Transform characterBody;
@@ -24,6 +25,7 @@ public class PlayerAction : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.instance;
+        soundManager = SoundManager.instance;
         playerManager = PlayerManager.instance;
         animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
     }
@@ -140,6 +142,7 @@ public class PlayerAction : MonoBehaviour
 
     private void Shot()
     {
+        soundManager.PlayShotEffect();
         var bulletGo = ObjectPoolManager.instance.GetGo("Bullet");
 
         bulletGo.transform.position = shotPos.position;

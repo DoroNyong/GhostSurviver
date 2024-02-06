@@ -1613,7 +1613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.91615015, b: 0.7216981, a: 1}
+  m_Color: {r: 0.24705882, g: 0.17254902, b: 0.43137255, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1785,15 +1785,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acf102c18af19744e816221d081d7c4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BGM_Title: {fileID: 0}
-  BGM_Main: {fileID: 0}
-  BGM_GameOver: {fileID: 0}
-  clickEffect: {fileID: 0}
-  cancelEffect: {fileID: 0}
+  BGM_Title: {fileID: 8300000, guid: db1557657c712a1489b61f3591ac79a8, type: 3}
+  BGM_Main: {fileID: 8300000, guid: 69627137d9848f442950aad59973335e, type: 3}
+  BGM_GameOver: {fileID: 8300000, guid: d8201f02699adfb45aa140e53e91b89b, type: 3}
+  clickEffect: {fileID: 8300000, guid: 3f352771f9f23ec4f8afdf0e4bf4de2f, type: 3}
+  cancelEffect: {fileID: 8300000, guid: 3fe9c654464df70489eb1da926cd7471, type: 3}
   loadingEffect: {fileID: 0}
-  towerShotEffect: {fileID: 0}
-  stageClear: {fileID: 0}
-  gameOver: {fileID: 0}
+  playerShotEffect: {fileID: 8300000, guid: 46dd9dfc8dc9595489ed3e90f3d10cb3, type: 3}
+  enemyDeadEffect: {fileID: 8300000, guid: a5ff9df025495d94393e86aeb1f44537, type: 3}
   bgmAudioSource: {fileID: 1103254268104607430}
   effectAudioSource: {fileID: 2522646473364687379}
   masterMixer: {fileID: 24100000, guid: ac6a6cd67cf58c34789d23c11d3fda80, type: 2}

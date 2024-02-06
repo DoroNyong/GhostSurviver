@@ -31,29 +31,27 @@ public class TitleManager : MonoBehaviour
 
     public void PanelOn(GameObject panel)
     {
-        //soundManager.PlayClickEffect();
+        soundManager.PlayClickEffect();
         panels.Push(panel);
         panels.Peek().SetActive(true);
     }
 
     public void PanelOff()
     {
-        //soundManager.PlayClickEffect();
+        soundManager.PlayClickEffect();
         panels.Peek().SetActive(false);
         panels.Pop();
     }
 
     public void GoMainScene()
     {
-        //soundManager.PlayClickEffect();
-        //soundManager.StopBGM();
+        soundManager.PlayClickEffect();
         SceneManager.LoadScene("MainScene");
     }
 
     public void ExitGame()
     {
-        //soundManager.PlayClickEffect();
-        //soundManager.StopBGM();
+        soundManager.PlayClickEffect();
         Application.Quit();
     }
 }

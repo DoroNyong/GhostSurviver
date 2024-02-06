@@ -16,10 +16,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip clickEffect; 
     [SerializeField] private AudioClip cancelEffect;
     [SerializeField] private AudioClip loadingEffect;
-    [SerializeField] private AudioClip towerShotEffect;
-
-    [SerializeField] private AudioClip stageClear;
-    [SerializeField] private AudioClip gameOver;
+    [SerializeField] private AudioClip playerShotEffect;
+    [SerializeField] private AudioClip enemyDeadEffect;
 
     [SerializeField] private AudioSource bgmAudioSource;
     [SerializeField] private AudioSource effectAudioSource;
@@ -61,9 +59,9 @@ public class SoundManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    public void PlayerShotEffect()
+    public void PlayShotEffect()
     {
-        effectAudioSource.PlayOneShot(towerShotEffect);
+        effectAudioSource.PlayOneShot(playerShotEffect);
     }
 
     public void PlayClickEffect()
@@ -81,6 +79,11 @@ public class SoundManager : MonoBehaviour
         effectAudioSource.PlayOneShot(loadingEffect);
     }
 
+    public void PlayEnemyDeadEffect(Transform transform)
+    {
+        AudioSource.PlayClipAtPoint(enemyDeadEffect, transform.position, SFXVolume);
+    }
+
     public void PauseBGM()
     {
         bgmAudioSource.Pause();
@@ -95,14 +98,12 @@ public class SoundManager : MonoBehaviour
         bgmAudioSource.Play();
     }
 
-    public void PlayStageClear()
+    public void GameOverBGM()
     {
-        effectAudioSource.PlayOneShot(stageClear);
-    }
-
-    public void PlayGameOver()
-    {
-        effectAudioSource.PlayOneShot(gameOver);
+        bgmAudioSource.clip = BGM_GameOver;
+        bgmAudioSource.loop = false;
+        bgmAudioSource.volume = 0.5f;
+        bgmAudioSource.Play();
     }
 
     private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode loadSceneMode)
@@ -115,7 +116,7 @@ public class SoundManager : MonoBehaviour
         }
         else if (scene.name == "MainScene")
         {
-            BgmPlay(BGM_Title);
+            BgmPlay(BGM_Main);
         }
         else
         {

@@ -14,9 +14,13 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject settingPanel;
 
+    [SerializeField] private GameObject gameOverPanel;
+
     [SerializeField] private Slider masterSlider;
     [SerializeField] private Slider BGMSlider;
     [SerializeField] private Slider SFXSlider;
+
+    private bool once = true;
 
     // Start is called before the first frame update
     private void Start()
@@ -40,14 +44,20 @@ public class UIManager : MonoBehaviour
                 PanelOff();
             }
         }
+
+        if (gameManager.isGameOver && once)
+        {
+            gameOverPanel.SetActive(true);
+            once = false;
+        }
     }
 
     public void PanelOn(GameObject panel)
     {
-        //soundManager.PlayClickEffect();
+        soundManager.PlayClickEffect();
         if (panels.Count == 0)
         {
-            //soundManager.PauseBGM();
+            soundManager.PauseBGM();
             Time.timeScale = 0;
             gameManager.isSetting = true;
             gameManager.CursorFree();
@@ -58,12 +68,12 @@ public class UIManager : MonoBehaviour
 
     public void PanelOff()
     {
-        //soundManager.PlayClickEffect();
+        soundManager.PlayClickEffect();
         panels.Peek().SetActive(false);
         panels.Pop();
         if (panels.Count == 0)
         {
-            //soundManager.ResumeBGM();
+            soundManager.ResumeBGM();
             Time.timeScale = 1;
             gameManager.isSetting = false;
             gameManager.CursorLock();
@@ -72,15 +82,14 @@ public class UIManager : MonoBehaviour
 
     public void GoTitleScene()
     {
-        //soundManager.PlayClickEffect();
-        //soundManager.StopBGM();
+        Time.timeScale = 1;
+        soundManager.PlayClickEffect();
         SceneManager.LoadScene("TitleScene");
     }
 
     public void ExitGame()
     {
-        //soundManager.PlayClickEffect();
-        //soundManager.StopBGM();
+        soundManager.PlayClickEffect();
         Application.Quit();
     }
 }

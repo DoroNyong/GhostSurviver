@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager instance;
 
     private GameManager gameManager;
+    private SoundManager soundManager;
     private Life life;
 
     public bool isMove = false;
@@ -39,19 +40,25 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.instance;
+        soundManager = SoundManager.instance;
         life = Life.instance;
     }
 
-    public void HitPlayerHp(int hitHp)
+    public void HitPlayerHp(int hitHp, Transform transform)
     {
-        hp -= hitHp;
-        life.UIHpText(hp);
+        if (!gameManager.isGameOver)
+        {
+            hp -= hitHp;
+            life.UIHpText(hp);
+            soundManager.PlayEnemyDeadEffect(transform);
+        }
 
-        if (hp <= 0)
+        if (hp <= 0 && !gameManager.isGameOver)
         {
             isMove = false;
             isAiming = false;
             gameManager.isGameOver = true;
+            soundManager.GameOverBGM();
         }
     }
 }
